@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<id><![CDATA[[OCMOD] COD (Cash On Delivery): Reverse checkout total in admin for payment method to become inactive]]></id>
+	<name><![CDATA[COD (Cash On Delivery): Reverse checkout total in admin for payment method to become inactive]]></name>
+	<code>knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive</code>
+	<version>0.1.0</version>
+	<author><![CDATA[<font color="#7F458C"><b>kanenas.net (aka Nikolas Branis)</b></font> - nbran@kanenas.net]]></author>
+	<link>https://kanenas.net/</link>
+	<file path="admin/language/el-gr/extension/payment/cod.php" error="log">
+		<operation error="skip">
+			<search><![CDATA[$_['help_total']         = 'Το συνολικό ποσό που πρέπει να φτάσει η παραγγελία για να ενεργοποιηθεί η μέθοδος πληρωμής.';]]></search>
+			<add position="replace"><![CDATA[
+	// kanenas: knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive (start) <<
+	$_['help_total']         = 'Το συνολικό ποσό που πρέπει να φτάσει η παραγγελία για να απενεργοποιηθεί η μέθοδος πληρωμής.';
+	// kanenas: knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive (end) <<
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/en-gb/extension/payment/cod.php" error="log">
+		<operation error="skip">
+			<search><![CDATA[$_['help_total']		 = 'The checkout total the order must reach before this payment method becomes active.';]]></search>
+			<add position="replace"><![CDATA[
+	// kanenas: knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive (start) <<
+	$_['help_total']		 = 'The checkout total the order must reach before this payment method becomes inactive.';
+	// kanenas: knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive (end) <<
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/extension/payment/cod.php" error="log">
+		<operation error="skip">
+			<search><![CDATA[if ($this->config->get('payment_cod_total') > 0 && $this->config->get('payment_cod_total') > $total) {]]></search>
+			<add position="replace"><![CDATA[
+		// kanenas: knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive (start) <<
+		if ($this->config->get('payment_cod_total') > 0 && $this->config->get('payment_cod_total') < $total) {
+		// kanenas: knns-cod-reverse-checkout-total-in-admin-for-payment-method-to-become-inactive (end) <<
+			]]></add>
+		</operation>
+	</file>
+</modification>
